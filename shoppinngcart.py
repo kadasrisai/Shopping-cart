@@ -31,22 +31,31 @@ class ShoppingCart:
         print("Items in the cart:")
         for item in self.cart:
             print(f"{item} - Price: {self.cart[item][0]}, Quantity: {self.cart[item][1]}")
-        print(f"{self.calculate_total_price('SAVE10')}")
 
-    def run(self):
-        try:
-            self.add_item("Apple", 2.0, 3)
-            self.add_item("Banana", 1.0, 2)
-            self.add_item("Orange", 1.5, 1)  # Invalid quantity, will raise an exception
-        except ValueError as e:
-            print(f"Error: {e}")
-        finally:
-            print("Thank you for shopping!")
+        coupon_Availability=input("So you have a Coupon :(Y/N)")
+        if coupon_Availability=='Y':
+            coup_code=input("Please Enter the coup-code :")
+            print(f"{self.calculate_total_price(coup_code)}")
+        else:
+            print(f"Total:{self.calculate_total_price()}")
 
 
 if __name__ == "__main__":
     cart = ShoppingCart()
-    cart.run()
+    try:
+        while(True):
+
+            Product_name = input("Enter the Productname:")
+            Price = int(input("Enter the Price: "))
+            Quantity = int(input("Enter the Quantity"))
+            cart.add_item(Product_name, Price, Quantity)
+            choice = input("Do you want to add more items :(Y/N)")
+            if(choice=='Y'):
+                continue
+            else:
+                break
+    except ValueError as e:
+        print(f"Error: {e}")
+    finally:
+        print("Thank you for shopping!")
     cart.display_cart()
-
-
